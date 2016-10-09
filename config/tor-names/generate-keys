@@ -1,0 +1,14 @@
+#!/bin/bash
+
+pattern=$(cat /var/keys/pattern)
+cores=2
+index=0
+echo "Looking for '${pattern}'"
+while [ true ]; do
+    shallot -t ${cores} -f /var/keys/key-${index} ${pattern}
+    address=$(cat /var/keys/key-${index} | grep 'Found matching domain after' | sed 's|.* after [0-9]* tries: ||')
+    echo "address: ${address}"
+    mv /var/keys/key-${index} /var/keys/${address}.key
+    index=$((index+1))
+    sleep 1 # allow ctrl+c
+done

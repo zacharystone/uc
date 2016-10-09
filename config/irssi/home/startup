@@ -1,0 +1,12 @@
+# load otr
+# load xmpp
+# load perl
+# beware: this monitors all you mesages!
+# /script load fnotify
+# /set cmd_queue_speed 1msec
+/STATUSBAR WINDOW ADD -before barend -alignment right xmpp_composing
+/join &bitlbee
+# initialize:
+# account add jabber username@jabber.host/purpose password
+# account 0 on
+# blist all

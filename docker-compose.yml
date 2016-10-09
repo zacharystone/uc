@@ -1,0 +1,45 @@
+uco:
+  build: ./config/tor
+  volumes:
+    - ./config/tor/torrc:/etc/tor/torrc
+ucn:
+  build: ./config/tor-names
+  volumes:
+    - ./secrets/tor-names/keys:/var/keys
+    - ./config/tor-names/generate-keys/:/usr/local/bin/generate-keys
+  entrypoint: /bin/false
+ucd:
+  build: ./config/bitlbee
+  volumes:
+    - ./secrets/bitlbee:/var/lib/bitlbee
+    - ./config/bitlbee/conf:/etc/bitlbee/bitlbee.conf
+    - ./bin/bitlbee.sh:/usr/local/bin/bitlbee.sh
+  entrypoint: /usr/local/bin/bitlbee.sh
+  links:
+    - uco
+ucdt:
+  build: ./config/bitlbee_and_tor
+  volumes:
+    - ./secrets/bitlbee:/var/lib/bitlbee
+    - ./config/bitlbee_and_tor/bitlbee.conf:/etc/bitlbee/bitlbee.conf
+    - ./config/bitlbee_and_tor/torsocks.conf:/etc/tor/torsocks.conf
+    - ./bin/bitlbee_and_tor.sh:/usr/local/bin/bitlbee.sh
+  entrypoint: /usr/local/bin/bitlbee.sh
+uc:
+  build: ./config/irssi
+  volumes:
+    - ./config/irssi/conf:/var/lib/irssi/config
+    - ./config/irssi/home:/var/lib/irssi/home
+    - ./bin/irssi.sh:/usr/local/bin/irssi.sh
+  entrypoint: /usr/local/bin/irssi.sh
+  links:
+    - ucdt:ucd
+ucs:
+  build: ./config/shell
+  volumes:
+    - ./config/shell/torsocks.conf.in:/etc/tor/torsocks.conf.in:ro
+    - ./bin/shell.sh:/usr/local/bin/shell.sh:ro
+    - ./secrets/shell/.ssh:/home/shell/.ssh:ro
+  entrypoint: /usr/local/bin/shell.sh
+  links:
+    - uco
