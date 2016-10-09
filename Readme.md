@@ -32,10 +32,12 @@ After some basic setup of the bitlbee service you will use bitlbee's
 commandline interface to review the buddy list (blist all), but before
 accounts need to be setup. All commands to the server are invoked using
 the &bitlbee IRC channel with the uc frontend.
+```
 (# register password)
 (# identify password)
-# account add jabber username@jabber.host/purpose password
-# account 0 on
+ # account add jabber username@jabber.host/purpose password
+ # account 0 on
+```
 
 Unfortunately the jabber-account cannot be registered. it needs to be
 registered in external software. Beware that this can compromise your
@@ -61,9 +63,11 @@ future.
 
 The command to setup the xmpp account for the hidden service changes.
 The server has to be set using the 'account 0 set' command:
+```
 # account add jabber username@server.tld
 # account 0 set server your-onion-siteh24-7.onion
 # account 0 on
+```
 
 To use UCDT you have to modify the docker-compose.yml and
 change the link of uc.
@@ -75,12 +79,14 @@ Unified Communication is a irssi that autoconnects to the bitlbee server
 ucd. This is the frontend you are constantly using. Refer to the irssi
 user guide when you need more than the following:
 
+```
 Alt + Left / Right - switch between windows
 PageUp / PageDown - to review history
 /msg [username] . - initiate a private chat, review OTR state message
 /wc - close message window
 identify 'password' - in &bitlbee channel
 register 'password' - in &bitlbee channel to create a new identity
+```
 when you encounter the error
 otr save: /var/lib/bitlbee/me.otr_fprints: Permission denied
 make sure you have the secrets/bitlbee directory chowned properly
@@ -117,17 +123,27 @@ Usage
 
 start a tmux session
 
-```tmux```
+```
+tmux
+```
 
 change to the checkout directory
 
-```cd /tmp/uc```
+```
+cd /tmp/uc
+```
 
 run the irssi client _in_ the docker session.
 
-```docker-compose run --rm uc```
+```
+docker-compose run --rm uc
+```
 
-you now should get a irssi client that you can easily detach from (ctrl+b d) and attach later ```tmux attach```.
+you now should get a irssi client that you can easily detach from (ctrl+b d) and attach later with
+
+```
+tmux attach
+```
 
 As you have to trust the computer you run this setup, verify its
 consistency before launching the services. When you leave this services 
